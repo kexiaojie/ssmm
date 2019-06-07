@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.how2java.mapper.CategoryMapper">
+    <select id="list"  resultType="Category">
+        select c.id,c.name from category_ c left join product_ p on c.id = p.cid limit ${start},${count}
+    </select>
+    <select id="total"  resultType="int">
+        select count(*) from category_ c left join product_ p on c.id = p.cid
+    </select>
+    <select id="edit"  resultType="Category">
+        select c.id,c.name from category_ c where id = ${id}
+    </select>
+    <select id="update"  >
+        update category_ set id=${id},name=${name}
+    </select>
+</mapper>

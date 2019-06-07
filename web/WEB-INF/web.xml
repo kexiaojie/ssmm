@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:web="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+
+    <!-- spring的配置文件-->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:config/spring/*.xml</param-value>
+    </context-param>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <!-- 配置spring mvc -->
+    <servlet>
+        <servlet-name>mvc-dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:config/springMVC.xml</param-value>
+        </init-param>
+<!--        配置springmvc扫描时候启动，大于等于0，随着容器启动，小于0在第一次请求进来的时候启动-->
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>mvc-dispatcher</servlet-name>
+<!--        素有请求都进入springmvc，除了jsp页面-->
+        <url-pattern>/</url-pattern>
+<!--        所有action结尾的请求都进入springmvc，解决静态资源无法被访问的问题-->
+<!--        <url-pattern>*.action</url-pattern>-->
+    </servlet-mapping>
+
+</web-app>
